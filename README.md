@@ -37,4 +37,4 @@ by newlines. The default file is given with all the existing TLDS at August 2021
 With the list of possible domain names, the script will then query chosen DNSs for their `NS` record for that domain, the
 idea is that registered domains should have at least the `NS` record. If it doesn't find it or times out, it will also try the `A` record.
 
-The script will output a timestamped CSV file with data for all possible domains in the working directory.
+The script will output a timestamped (eu format) CSV file with data for all possible domains in the working directory.

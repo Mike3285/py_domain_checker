@@ -7,8 +7,9 @@ import time
 import dns.resolver
 import tqdm
 
+now = datetime.datetime.now().strftime("%H_%M_%S")
 cpu_count = multiprocessing.cpu_count()
-logging.basicConfig(filename=f'domains.log', level=logging.WARNING,
+logging.basicConfig(filename=f'domains_{now}.log', level=logging.INFO,
                     format="%(asctime)s %(name)-30s %(levelname)-8s %(message)s")
 myResolver = dns.resolver.Resolver()
 
@@ -54,8 +55,7 @@ def make_domain_names(name):
 
 
 if __name__ == '__main__':
-    print('Type a domain name you want to check, with no TLD')
-    now = datetime.datetime.now().strftime("%H_%M")
+    print('Type a domain name you want to check, with no TLD and press ENTER')
     name = input('>>>')
     domains = make_domain_names(name)
     result = []
@@ -63,9 +63,9 @@ if __name__ == '__main__':
         for data in pool.imap_unordered(check_domain_existence, domains):
             result.append(data)
             pbar.update()
-    chiavi = list(set([i for s in [d.keys() for d in result] for i in s]))
+    key_names = list(set([i for s in [d.keys() for d in result] for i in s]))
     with open(f'result{name}_{now}.csv', 'w+', newline='', encoding="utf8") as csvfile:
-        wr = csv.DictWriter(csvfile, quoting=csv.QUOTE_ALL, fieldnames=chiavi, restval="",)
+        wr = csv.DictWriter(csvfile, quoting=csv.QUOTE_ALL, fieldnames=key_names, restval="",)
         wr.writeheader()
         wr.writerows(result)
     print("Done! You will find a CSV file with your results in the working directory")

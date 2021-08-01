@@ -3,3 +3,4 @@ venv
 *.csv
 desktop.ini
 *.zip
+*log
