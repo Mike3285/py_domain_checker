@@ -9,7 +9,6 @@ Download/copy/clone  the main.py script and i nstall all the dependencies with
 pip install -r requirements.txt
 # or
 pip3 install -r requirements.txt
-
 ```
 ### Usage:
 
